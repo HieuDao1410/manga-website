@@ -7,6 +7,67 @@
     <link rel="stylesheet" type="text/css" href="tonghopcss.css">
     <link rel="stylesheet" href="bootstrap-5.3.6-dist/bootstrap-5.3.6-dist/css/bootstrap.min.css" />
     <script src="bootstrap-5.3.6-dist/bootstrap-5.3.6-dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    const mangaData = [
+        {
+            title: "Doraemon",
+            image: "doraemon.jpg",
+            categories: ["Hài hước", "Phiêu lưu"]
+        },
+        {
+            title: "Kimetsu No Yaiba",
+            image: "Kimetsu.jpg",
+            categories: ["Hành động", "Kinh dị"]
+        },
+        {
+            title: "Dragon Ball",
+            image: "DragonBall.jpg",
+            categories: ["Hành động", "Phiêu lưu"]
+        },
+        {
+            title: "Dr. Stone",
+            image: "DrStone.jpg",
+            categories: ["Viễn tưởng", "Phiêu lưu"]
+        },
+    ];
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        const genreLinks = document.querySelectorAll('.sidebar li li a');
+        
+        genreLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const selectedGenre = this.textContent.trim();
+                filterMangaByGenre(selectedGenre);
+            });
+        });
+        
+        function filterMangaByGenre(genre) {
+            const filteredManga = mangaData.filter(manga => 
+                manga.categories.includes(genre)
+            );
+            
+            displayFilteredManga(filteredManga);
+        }
+        
+        function displayFilteredManga(mangaList) {
+            const mangaContainer = document.getElementById('manga-container');
+            mangaContainer.innerHTML = ''; // Xóa nội dung cũ
+            
+            mangaList.forEach(manga => {
+                const mangaElement = document.createElement('div');
+                mangaElement.className = 'manga-item';
+                mangaElement.innerHTML = `
+                    <img src="${manga.image}" alt="${manga.title}">
+                    <h3>${manga.title}</h3>
+                `;
+                mangaContainer.appendChild(mangaElement);
+            });
+        }
+    });
+</script>
 </head>
 <body style="background-color: #1b1b1b">
     <nav class="navbar navbar-expand-lg navbar-dark px-5" style="background-color: #7c0e9c;">
